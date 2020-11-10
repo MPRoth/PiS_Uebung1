@@ -5,9 +5,13 @@ public class Main {
         ABCThread alphabet1 = new ABCThread(true);
         ABCThread alphabet2 = new ABCThread(false);
 
+        KillerThread killer = new KillerThread(alphabet1, alphabet2);
+
+        killer.start();
         alphabet1.start();
         //alphabet1.join();
         alphabet2.start();
+
 
         //Aufgabe 2
         //new Thread(new ABCPrinter(true)).start();

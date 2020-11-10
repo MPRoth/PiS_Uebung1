@@ -9,11 +9,22 @@ public class ABCThread extends Thread{
     @Override
     public void run() {
         super.run();
-        for (char alphabet = ((kleinbuchstaben) ? 'a' : 'A'); alphabet <= ((kleinbuchstaben) ? 'z' : 'Z'); alphabet++) {
-            while (istKleinDran != kleinbuchstaben) Thread.yield();
-            System.out.println(alphabet);
-            istKleinDran = !istKleinDran;
-            Thread.yield();
+        while(!isInterrupted()) {
+            for (char alphabet = ((kleinbuchstaben) ? 'a' : 'A'); alphabet <= ((kleinbuchstaben) ? 'z' : 'Z'); alphabet++) {
+                while (istKleinDran != kleinbuchstaben) Thread.yield();
+                if (isInterrupted()){
+                    System.out.println("Ende ABCThread" + kleinbuchstaben);
+                    istKleinDran = !istKleinDran;
+                    break;
+                }
+                System.out.println(alphabet);
+                istKleinDran = !istKleinDran;
+                /*try {
+                    sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }*/
+            }
         }
     }
 }
